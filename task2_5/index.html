@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>task2_5</title>
+	<style>
+		ul{
+			list-style-type: none;
+			padding: 0;
+		}
+		ul li{
+			display: inline-block;
+			padding: 10px;
+			background: red;
+			color: #fff;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<input type="text" id="num" >
+	<button id="leftIn">左侧入</button>
+	<button id="rightIn">右侧入</button>
+	<button id="leftOut">左侧出</button>
+	<button id="rightOut">右侧出</button>
+	<button id="sort">排序</button>
+	<ul id="container">
+		
+	</ul>
+</body>
+<script>
+	//获取数字
+	var num= document.getElementById('num');
+	//获取按钮
+	var leftIn = document.getElementById('leftIn');
+	var rightIn = document.getElementById('rightIn');
+	var leftOut = document.getElementById('leftOut');
+	var rightOut = document.getElementById('rightOut');
+	//框获取
+	var container =document.getElementById('container');
+	var sort=document.getElementById('sort');
+	
+	//左加入函数
+	function insertNum(){
+		if(liList.length>59){
+			alert("元素个数上限为60个")
+		}
+		else if(num.value==""||isNaN(num.value)){
+			alert("请输入一个10~100以内的数字");
+		}
+		else{
+			var addLi=document.createElement('li');
+					addLi.style.height=num.value+"px";
+					container.insertBefore(addLi,container.firstChild);
+					num.value="";
+		};
+	}
+	//右加入函数
+	function appendNum(){
+			if(liList.length>59){
+					alert("队列元素数量最多限制为60个")
+				}else if(num.value==""||isNaN(num.value)){
+					alert("请输入一个数字");
+				}else if(num.value<=10||num.value>=100){
+					alert("请输入一个10~100以内的数字");
+				}else{
+					var addLi=document.createElement('li');
+ 					//addLi.innerHTML=num.value;
+					addLi.style.height=num.value+"px";
+					container.appendChild(addLi);
+					num.value="";
+				};
+				if(liList.length>60){
+					alert("队列元素数量最多限制为60个")
+				}
+		}
+			
+		leftIn.addEventListener("click",insertNum);
+		rightIn.addEventListener("click",appendNum);
+	/*点击按钮左侧出、右侧出分别读取并删除队列左右的首个元素，并且弹窗显示元素中的数值。*/
+	var liList=container.getElementsByTagName('li');
+	function leftRemove(){
+		if(confirm("确定删除"+liList[0].innerHTML+"吗？")){
+			liList[0].remove();
+		}
+		else{
+			alert("取消删除");
+		}
+	}
+	//右移除函数
+	function rightRemove(){
+		if(confirm("确定删除"+container.lastChild.innerHTML+"吗？")){
+			container.lastChild.remove();
+		}
+		else{
+			alert("取消删除");
+		}
+	}
+	//左出
+	leftOut.addEventListener("click",leftRemove);
+	//右出
+	rightOut.addEventListener("click",rightRemove);
+	function sortNum(){
+		if (liList<=1) {
+			return liList;
+		};
+		//var myList=document.createDocumentFragment();
+		var temp=[];
+		for (var i = 0; i < liList.length; i++) {
+			var m=liList[i].style.height;
+			m=m.replace("px","");
+			temp.push(m);
+		}
+		temp.sort(function(a,b){
+			return a-b;
+		});
+		for(var n=0;n<temp.length;n++){
+			liList[n].style.height=temp[n]+"px";
+		}
+			return liList;
+	}
+	sort.addEventListener("click",sortNum);
+</script>
+</html>
