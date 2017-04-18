@@ -70,10 +70,10 @@
 		leftIn.addEventListener("click",insertNum);
 		rightIn.addEventListener("click",appendNum);
 	/*点击按钮左侧出、右侧出分别读取并删除队列左右的首个元素，并且弹窗显示元素中的数值。*/
-	var ulList=container.getElementsByTagName('li');
+	var liList=container.getElementsByTagName('li');
 	function leftRemove(){
-		if(confirm("确定删除"+ulList[0].innerHTML+"吗？")){
-			ulList[0].remove();
+		if(confirm("确定删除"+liList[0].innerHTML+"吗？")){
+			liList[0].remove();
 		}
 		else{
 			alert("取消删除");
