@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>task2_1</title>
+	<style type="text/css">
+		input{
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			color: #555;
+			margin-left: 5px;
+		}
+		button{
+			color: white;
+			background: #5555FF;
+			border-style: none;
+			border-radius: 4px;
+			font-family: "微软雅黑";
+		}
+		p{
+			font-size: 10pt;
+			color: #888;
+			margin-left: 40px;
+		}
+		label{
+			font-size: 15px;
+		}
+		input.tureN:focus {
+			border-color: #356635;
+		}
+		input.falseN:focus {
+   			 border-color: #843534;
+		}
+		p.tureN {
+   			color: #468847
+		}
+		p.falseN {
+    		color: #b94a48;
+		}
+	</style>
+</head>
+<body>
+<form>
+	<label for="name">名称</label>
+	<input type="text" id="name">
+	<button id="test">验证</button>
+</form>
+<p id="message">必填，长度为4~16个字符</p>
+<script>
+	(function() {
+    let input = document.getElementById("name");
+    let message = document.getElementById("message");
+    document.getElementById("test").onclick = function () {
+    	input.className.replace(/[xd800-xffff]/g, 'A');
+    	input.className.replace(/[^x00-xff]/g,'AB');
+        let pass = /^.{4,16}$/.test(input.value);
+        input.className = pass ? "tureN" : "falseN";
+        message.className = pass ? "tureN" : "falseN";
+        message.innerText = pass ? "名称格式正确" : "名称格式有误";
+    }
+}());
+</script>
+</body>
+</html>
