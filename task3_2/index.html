@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>task3_2</title>
+	<style type="text/css">
+		#myform{
+			padding: 50px;
+			margin-bottom: 50px;
+		}
+		#passwordRepeat{
+			position: absolute;
+			left: 155px;
+			top: 270px;
+		}
+		input{
+			border: 2px solid   #ccc;
+			height: 45px;
+			width: 600px;
+			border-radius: 5px;
+
+		}
+		button{
+			background-color: #3535FF;
+			color: white;
+			float: right;
+			height: 70px;
+			width: 160px;
+			border-radius: 8px;
+			margin-right: 520px;
+
+			border-style: none;
+			font-size: 20pt;
+		}
+		label{
+			font-size: 1.5em;
+		}
+		p{
+			text-align: left;
+			margin-left: 100px;
+			font-size: 13pt;
+			color:  #808080;
+		}
+		input.fail {
+			    border-color: #a94442;
+		}
+
+		input.success {
+			    border-color: #468847;
+		}
+
+		input:focus {
+			    outline: 0;
+			    border-color: #66afe9;
+		}
+
+		input.fail:focus {
+			    border-color: #843534;
+		}
+
+		input.success:focus {
+			    border-color: #356635;
+		}
+		p.fail {
+			    display: block;
+			    color: #b94a48;
+		}
+		p.success {
+			    display: block;
+			    color: #468847;
+		}
+	</style>
+</head>
+<body>
+	<form id="myform">
+		<label for="name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名称</label>
+		<input type="text" id="name">
+		<p id="nameMessage">必填，长度为4~16个字符</p>
+		<label for="password">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码</label>
+		<input type="password" name="password" id="password" >
+		<p id="passwordMessage">请输入密码</p>
+		<label for="passwordRepeat" >密码确认</label>
+		<input type="password" name="passwordRepeat" id="passwordRepeat">
+		<p id="passwordRepeatMessage">必填，再次输入相同密码 </p>
+		<label for="email">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮箱</label>
+		<input type="email" name="email" id="email">
+		<p id="emailMessage">请输入邮箱</p>
+		<label for="tel">手机号码</label>
+		<input type="tel" name="tel" id="tel">
+		<p id="telMessage">请输入手机号</p>
+		<button type="submit" id="button" >提交</button>
+	</form>
+<script type="text/javascript">
+	var nameInput = document.getElementById("name");
+    var nameMessage = document.getElementById("nameMessage");
+    var passwordInput = document.getElementById("password");
+    var passwordMessage = document.getElementById("passwordMessage");
+    var passwordRepeatInput = document.getElementById("passwordRepeat");
+    var passwordRepeatMessage = document.getElementById("passwordRepeatMessage");
+    var emailInput = document.getElementById("email");
+    var emailMessage = document.getElementById("emailMessage");
+    var telInput = document.getElementById("tel");
+    var telMessage = document.getElementById("telMessage");
+    function validateName() {
+    	nameInput.className.replace(/[xd800-xffff]/g, 'A');
+    	nameInput.className.replace(/[^x00-xff]/g,'AB');
+        var pass = /^.{4,16}$/.test(nameInput.value);
+        nameInput.className = pass ? "success" : "fail";
+        nameMessage.className = pass ? "success" : "fail";
+        nameMessage.innerText = pass ? "名称格式正确" : "名称格式错误";
+        return pass;
+    }
+    function validatePassword() {
+        var pass = passwordInput.value;
+        passwordInput.className = pass ? "success" : "fail";
+        passwordMessage.className = pass ? "success" : "fail";
+        passwordMessage.innerText = pass ? "密码可用" : "密码不得为空 ";
+        return pass;
+    }
+    
+    function validatePasswordRepeat() {
+    	if(passwordRepeatInput.value == passwordInput.value){
+    		var pass = passwordRepeatInput.value == passwordInput.value;
+        	passwordRepeatInput.className = "success";
+        	passwordRepeatMessage.className = "success";
+        	passwordRepeatMessage.innerText = "密码输入一致";
+       	 	return pass;
+    	}
+        else{
+        	var pass = passwordRepeatInput.value;
+        	passwordRepeatInput.className = "fail";
+        	passwordRepeatMessage.className = "fail";
+        	passwordRepeatMessage.innerText = "密码输入不一致";
+       	 	return pass;
+        }; 
+    }
+    
+    function validateEmail() {
+        var pass = /^\w+@\w+(\.\w+)+$/.test(emailInput.value);
+        emailInput.className = pass ? "success" : "fail";
+        emailMessage.className = pass ? "success" : "fail";
+        emailMessage.innerText = pass ? "邮箱格式正确" : "邮箱格式错误";
+        return pass;
+    }
+    
+    function validateTel() {
+        var pass = /^\d{11}$/.test(telInput.value);
+        telInput.className = pass ? "success" : "fail";
+        telMessage.className = pass ? "success" : "fail";
+        telMessage.innerText = pass ? "手机格式正确" : "手机格式错误";
+        return pass;
+    }
+    
+    nameInput.onfocus = function () { nameMessage.style.display = "block"; };
+    passwordInput.onfocus = function () { passwordMessage.style.display = "block"; };
+    passwordRepeatInput.onfocus = function () { passwordRepeatInput.style.display = "block"; };
+    emailInput.onfocus = function () { emailMessage.style.display = "block"; };
+    telInput.onfocus = function () { telMessage.style.display = "block"; };
+    
+    nameInput.onblur = validateName;
+    passwordInput.onblur = validatePassword;
+    passwordRepeatInput.onblur = validatePasswordRepeat;
+    emailInput.onblur = validateEmail;
+    telInput.onblur = validateTel;
+    
+    document.getElementById("button").onclick = function () {
+        alert((validateName() && validatePassword() && validatePasswordRepeat() && validateEmail() && validateTel()) ? "提交成功" : "提交失败");
+    }
+</script>
+</body>
+</html>
