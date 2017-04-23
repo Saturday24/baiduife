@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>task3_3</title>
+	<style type="text/css">
+		form{
+			text-align: center;
+			margin-top: 100px;
+		}
+		article{display: none;}
+	</style>
+</head>
+<body>
+<form>
+    <input type="radio" name="school" value="in" id="inSchool">
+    <label for="inSchool">在校生</label>
+     <input type="radio" name="school" value="out" id="outSchool">
+     <label for="outSchool">非在校生</label>
+    <article id="inSchoolInputs" >
+        <label for="school">学校</label>
+        <select id="city" title="city">
+            <option value="beijing">北京</option>
+            <option value="shanghai">上海</option>
+        </select>
+        <select id="school"></select>
+    </article>
+    <article id="outSchoolInputs">
+        <label for="work">就业单位</label>
+        <input type="text" id="work">
+    </article>
+</form>
+<script>
+  var schoolMap = new Map([["beijing", ["北京大学", "清华大学"]], ["shanghai", ["复旦大学", "交通大学"]]]);
+    var citySelect = document.getElementById("city");
+    var schoolSelect = document.getElementById("school");
+    var inSchool=document.getElementById("inSchool");
+    inSchool.onclick = changeSchoolState;
+    var outSchool=document.getElementById("outSchool")
+    outSchool.onclick = changeSchoolState;
+    citySelect.onchange = changeCity();
+   function changeSchoolState() {
+        document.getElementById(this.value == "in" ? "outSchoolInputs" : "inSchoolInputs").style.display = "none";
+        document.getElementById(this.value == "in" ? "inSchoolInputs" : "outSchoolInputs").style.display = "block";
+    }
+   function changeCity() {
+        var schools = schoolMap.get(citySelect.options[citySelect.selectedIndex].value);
+        while (schoolSelect.children.length)
+            schoolSelect.removeChild(schoolSelect.lastElementChild);
+        for (var school of schools) {
+            var option = document.createElement("option");
+            option.innerHTML = school;
+            schoolSelect.appendChild(option);
+        }}
+</script>
+</body>
+</html>
